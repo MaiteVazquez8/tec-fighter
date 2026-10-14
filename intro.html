@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TEC FIGHTER - Introducción</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/intro.css" />
+  <script>
+    document.cookie = 'tecFighterIntroSeen=1; Max-Age=31536000; Path=/; SameSite=Lax'
+    try {
+      localStorage.setItem('tecFighterIntroSeen', '1')
+    } catch (error) {
+      // Cookies remain the primary persistence mechanism on the hosted site.
+    }
+  </script>
+</head>
+<body>
+  <!-- Estrellas de fondo -->
+  <div class="stars-background" id="stars"></div>
+
+  <div class="container">
+    <h1>TEC FIGHTER</h1>
+    <div class="title-line"></div>
+
+    <div class="game-description">
+      <p>
+        <strong>¡Bienvenido a TEC FIGHTER!</strong>
+      </p>
+      <p>
+        Sumérgete en un épico combate uno contra uno donde la habilidad y la estrategia son la clave para la victoria. 
+        Elige tu luchador y prepárate para enfrentarte en batallas intensas de 3 rounds.
+      </p>
+      <p>
+        <strong>Características del juego:</strong>
+      </p>
+      <p>
+        • Combate cuerpo a cuerpo con ataques rápidos y precisos<br>
+        • Sistema de 3 rounds para determinar al ganador<br>
+        • Mecánicas de bloqueo cuando ambos combatientes atacan simultáneamente<br>
+        • Efectos visuales impactantes con chispas en los choques de espadas<br>
+        • Controles intuitivos y responsivos<br>
+        • Gráficos estilo pixel art retro
+      </p>
+      <p>
+        <strong>¿Listo para luchar?</strong> Demuestra quién es el mejor combatiente y domina la arena.
+      </p>
+    </div>
+
+    <div class="team-section">
+      <h2 class="team-title">EQUIPO DE DESARROLLO</h2>
+      <div class="team-members">
+        <div class="member">
+          <div class="member-name">ALVAREZ SANTIAGO</div>
+          <div>Desarrollador</div>
+        </div>
+        <div class="member">
+          <div class="member-name">MAITE VAZQUEZ</div>
+          <div>Desarrolladora/Documentación</div>
+        </div>
+        <div class="member">
+          <div class="member-name">NAYLA GOMEZ</div>
+          <div>Marketing/Documentación</div>
+        </div>
+      </div>
+    </div>
+
+    <a href="index.html" class="start-button">COMENZAR JUEGO</a>
+
+    <div class="footer">
+      © 2024 Fighting Game - Todos los derechos reservados
+    </div>
+  </div>
+
+  <script>
+    // Crear estrellas animadas en el fondo
+    function createStars() {
+      const starsContainer = document.getElementById('stars');
+      const numberOfStars = 50;
+
+      for (let i = 0; i < numberOfStars; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        
+        // Tamaño aleatorio
+        const size = Math.random() * 3 + 1;
+        star.style.width = size + 'px';
+        star.style.height = size + 'px';
+        
+        // Posición aleatoria
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        
+        // Animación aleatoria
+        const delay = Math.random() * 3;
+        star.style.animationDelay = delay + 's';
+        star.style.animationDuration = (Math.random() * 2 + 2) + 's';
+        
+        // Agregar la estrella al contenedor
+        starsContainer.appendChild(star);
+      }
+    }
+
+    // Crear estrellas al cargar la página
+    window.addEventListener('DOMContentLoaded', createStars);
+  </script>
+</body>
+</html>

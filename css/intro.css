@@ -1,0 +1,203 @@
+:root {
+  --gold: #ffc66d;
+  --gold-dark: #a96b32;
+  --panel: rgba(10, 14, 24, 0.88);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  min-width: 320px;
+  background: #090d17;
+}
+
+body {
+  position: relative;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+  padding: clamp(16px, 4vw, 44px);
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(46, 67, 92, 0.7), transparent 58%),
+    linear-gradient(145deg, #090d17, #101a2a 60%, #0b101b);
+  color: #fff;
+  font-family: 'Press Start 2P', cursive;
+}
+
+.stars-background {
+  position: fixed;
+  z-index: 0;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background: #fff;
+  animation: twinkle 3s infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 0.95; }
+}
+
+.container {
+  z-index: 1;
+  width: min(100%, 960px);
+  padding: clamp(22px, 5vw, 48px);
+  border: 1px solid rgba(255, 198, 109, 0.65);
+  border-radius: 4px;
+  background: var(--panel);
+  text-align: center;
+  box-shadow: 0 20px 70px rgba(0, 0, 0, 0.6), inset 0 0 35px rgba(255, 198, 109, 0.035);
+  animation: fadeIn 700ms ease-out both;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+h1 {
+  margin-bottom: 18px;
+  color: var(--gold);
+  font-size: clamp(19px, 4vw, 34px);
+  line-height: 1.6;
+  text-shadow: 0 4px 0 var(--gold-dark), 0 8px 28px rgba(0, 0, 0, 0.7);
+}
+
+.title-line {
+  width: clamp(100px, 25vw, 200px);
+  height: 3px;
+  margin: 18px auto 26px;
+  background: var(--gold);
+  box-shadow: 0 0 15px rgba(255, 198, 109, 0.45);
+}
+
+.game-description {
+  margin-bottom: 30px;
+  padding: clamp(16px, 3vw, 26px);
+  border-left: 3px solid var(--gold);
+  border-radius: 2px;
+  background: rgba(0, 0, 0, 0.25);
+  color: #e0e5ec;
+  font-family: Arial, sans-serif;
+  font-size: clamp(14px, 1.7vw, 17px);
+  line-height: 1.75;
+  text-align: left;
+}
+
+.game-description p + p {
+  margin-top: 15px;
+}
+
+.game-description strong {
+  color: var(--gold-bright, #ffe0a3);
+}
+
+.team-section {
+  margin-top: 28px;
+  padding-top: 26px;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.team-title {
+  margin-bottom: 18px;
+  color: var(--gold);
+  font-size: clamp(10px, 1.5vw, 14px);
+  line-height: 1.7;
+}
+
+.team-members {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.member {
+  padding: clamp(12px, 2vw, 18px);
+  border: 1px solid rgba(255, 198, 109, 0.25);
+  border-radius: 2px;
+  background: rgba(255, 198, 109, 0.055);
+  color: #cbd0d9;
+  font-family: Arial, sans-serif;
+  font-size: clamp(12px, 1.4vw, 14px);
+  line-height: 1.6;
+  transition: border-color 160ms ease, background-color 160ms ease, transform 160ms ease;
+}
+
+.member:hover {
+  transform: translateY(-3px);
+  border-color: var(--gold);
+  background: rgba(255, 198, 109, 0.11);
+}
+
+.member-name {
+  margin-bottom: 8px;
+  color: var(--gold);
+  font-family: 'Press Start 2P', cursive;
+  font-size: clamp(7px, 0.9vw, 9px);
+  line-height: 1.8;
+}
+
+.start-button {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 17px 24px;
+  border: 1px solid var(--gold);
+  border-radius: 2px;
+  background: var(--gold);
+  box-shadow: 0 5px 0 var(--gold-dark), 0 10px 26px rgba(255, 177, 70, 0.2);
+  color: #17120c;
+  font-size: clamp(9px, 1.2vw, 12px);
+  line-height: 1.7;
+  text-decoration: none;
+  transition: transform 150ms ease, background-color 150ms ease;
+}
+
+.start-button:hover {
+  transform: translateY(-2px);
+  background: #ffe0a3;
+}
+
+.start-button:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 5px;
+}
+
+.start-button:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 var(--gold-dark);
+}
+
+.footer {
+  margin-top: 24px;
+  color: #8c95a4;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+}
+
+@media (max-width: 650px) {
+  body {
+    justify-content: flex-start;
+  }
+
+  .team-members {
+    grid-template-columns: 1fr;
+  }
+
+  .member {
+    text-align: left;
+  }
+}

@@ -2,6 +2,12 @@
 
 TEC FIGHTER es un juego de lucha local para dos personas, inspirado en los juegos arcade de pixel art. Cada jugador controla a un luchador en la misma arena. La partida se disputa en tres rounds y gana quien se imponga en más rounds.
 
+## Equipo de desarrollo
+
+- **ALVAREZ SANTIAGO** — Desarrollador
+- **MAITE VAZQUEZ** — Desarrolladora / Documentación
+- **NAYLA GOMEZ** — Marketing / Documentación
+
 ## Cómo ejecutar el juego
 
 No hace falta instalar dependencias ni compilar el proyecto:
@@ -87,9 +93,3 @@ Es el punto de entrada de la lógica del juego. El orden de scripts al final de 
 `index.html` busca la marca `tecFighterIntroSeen`. En una web publicada se guarda mediante una cookie que dura un año; si las cookies no están disponibles, se intenta usar `localStorage`. `intro.html` también guarda la marca cuando se visita directamente para que su botón **Comenzar juego** no provoque una redirección repetida.
 
 Para volver a ver la introducción, elimina la cookie `tecFighterIntroSeen` y, si el navegador está ejecutando los archivos con `file://`, elimina también la entrada `tecFighterIntroSeen` de `localStorage`.
-
-## Equipo de desarrollo
-
-- **ALVAREZ SANTIAGO** — Desarrollador
-- **MAITE VAZQUEZ** — Desarrolladora / Documentación
-- **NAYLA GOMEZ** — Marketing / Documentación

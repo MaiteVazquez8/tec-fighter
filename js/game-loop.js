@@ -312,9 +312,6 @@ function animate() {
     enemy.draw()
   }
 
-  // ============================================
-  // DIBUJAR HITBOXES PARA DEBUGGING (COMENTADO)
-  // ============================================
   // Para ver las hitboxes, descomenta todo el bloque de código de abajo
   // Este bloque dibuja rectángulos semitransparentes sobre los personajes
   // para visualizar las áreas de colisión. Solo se muestran durante el juego (STATE_PLAY)
@@ -418,8 +415,5 @@ function animate() {
     }
   }
   */
-  // ============================================
-  // FIN DE DIBUJADO DE HITBOXES (COMENTADO)
-  // ============================================
 }
 

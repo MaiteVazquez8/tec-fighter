@@ -24,26 +24,26 @@ La fuente pixel art se carga desde Google Fonts y GSAP se carga desde CDN, por l
 ## Estructura del proyecto
 
 ```text
-.
-├── index.html              # Menús, HUD, canvas y carga de scripts
-├── index.js                # Arranque del menú y del bucle de animación
-├── intro.html              # Introducción y presentación del equipo
-├── css/
-│   ├── style.css           # Estilos del juego y sus menús
-│   └── intro.css           # Estilos de la introducción
-├── js/
-│   ├── classes.js          # Clases Sprite y Fighter
-│   ├── utils.js            # Colisiones y partículas Spark
-│   ├── game-setup.js       # Canvas, estado, luchadores y teclas
-│   ├── game-ui.js          # Referencias DOM, menús y botones
-│   ├── game-rounds.js      # Temporizadores, rounds y reinicio
-│   ├── game-loop.js        # Física, combate, colisiones y dibujo
-│   ├── game-controls.js    # Eventos de teclado
-└── img/
-    ├── TF-bg.png           # Fondo de la arena
-    ├── shop.png            # Elemento animado de la arena
-    ├── samuraiMack/        # Sprites y animaciones del jugador 1
-    └── kenji/              # Sprites y animaciones del jugador 2
+tec-fighter
+    ├── index.html              # Menús, HUD, canvas y carga de scripts
+    ├── index.js                # Arranque del menú y del bucle de animación
+    ├── intro.html              # Introducción y presentación del equipo
+    ├── css/
+    │   ├── style.css           # Estilos del juego y sus menús
+    │   └── intro.css           # Estilos de la introducción
+    ├── js/
+    │   ├── classes.js          # Clases Sprite y Fighter
+    │   ├── utils.js            # Colisiones y partículas Spark
+    │   ├── game-setup.js       # Canvas, estado, luchadores y teclas
+    │   ├── game-ui.js          # Referencias DOM, menús y botones
+    │   ├── game-rounds.js      # Temporizadores, rounds y reinicio
+    │   ├── game-loop.js        # Física, combate, colisiones y dibujo
+    │   ├── game-controls.js    # Eventos de teclado
+    └── img/
+        ├── TF-bg.png           # Fondo de la arena
+        ├── shop.png            # Elemento animado de la arena
+        ├── samuraiMack/        # Sprites y animaciones del jugador 1
+        └── kenji/              # Sprites y animaciones del jugador 2
 ```
 
 ## Cómo funciona el juego

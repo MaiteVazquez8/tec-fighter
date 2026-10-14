@@ -19,6 +19,7 @@ const pauseToMainBtn = document.getElementById('pauseToMainBtn')
 
 // Funciones para mostrar/ocultar menús
 function showMainMenu() {
+  startMenuMusic()
   state = STATE_MENU
   isPaused = false
   clearRoundCountdown()
@@ -37,6 +38,7 @@ function showMainMenu() {
 }
 
 function showHowTo() {
+  startMenuMusic()
   state = STATE_INSTRUCTIONS
   isPaused = false
   gameHud.classList.add('hidden')
@@ -47,6 +49,7 @@ function showHowTo() {
 }
 
 function showGameOverMenu() {
+  startMenuMusic()
   // tomar texto que determine el ganador del div existente si lo hay
   const displayText = document.querySelector('#displayText').innerText || 'Fin de la partida'
   gameOverText.innerText = displayText
@@ -63,6 +66,7 @@ function showGameOverMenu() {
 function showPauseMenu() {
   if (state !== STATE_PLAY) return
   isPaused = true
+  startMenuMusic()
   pauseMenu.classList.remove('hidden')
 
   // Pausar el contador si existe
@@ -80,6 +84,11 @@ function hidePauseMenu() {
   // Reanudar el contador si la función existe
   if (typeof decreaseTimer === 'function') {
     decreaseTimer()
+  }
+  if (!roundEnded && !gameEnded) {
+    startFightMusic()
+  } else {
+    startMenuMusic()
   }
 }
 
@@ -101,6 +110,7 @@ function startGame() {
   state = STATE_PLAY
   resetGame() // resetGame ahora llama a decreaseTimer() y reinicia todo
   gameEnded = false
+  startFightMusic(true)
 }
 
 // Botones del menú
@@ -130,7 +140,6 @@ toMainBtn.addEventListener('click', () => {
 
 // Botones de pausa
 pauseRestartBtn.addEventListener('click', () => {
-  hidePauseMenu()
   startGame()
 })
 
@@ -139,7 +148,5 @@ pauseContinueBtn.addEventListener('click', () => {
 })
 
 pauseToMainBtn.addEventListener('click', () => {
-  hidePauseMenu()
   showMainMenu()
 })
-

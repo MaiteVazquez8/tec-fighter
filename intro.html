@@ -8,6 +8,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/intro.css" />
+  <script src="js/music.js" defer></script>
+  <script src="js/ui-audio.js" defer></script>
   <script>
     document.cookie = 'tecFighterIntroSeen=1; Max-Age=31536000; Path=/; SameSite=Lax'
     try {
@@ -75,6 +77,8 @@
   </div>
 
   <script>
+    document.addEventListener('DOMContentLoaded', () => startMenuMusic())
+
     // Crear estrellas animadas en el fondo
     function createStars() {
       const starsContainer = document.getElementById('stars');

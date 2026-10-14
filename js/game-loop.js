@@ -174,6 +174,10 @@ function animate() {
     const isNewBlock = isBlockingNow && !wasBlockingLastFrame
     
     if (isNewBlock) {
+      player.attackHit = true
+      enemy.attackHit = true
+      playGameSound('block')
+
       // Calcular punto de colisión (centro entre los dos attackBoxes)
       const collisionX = (player.attackBox.position.x + player.attackBox.width + enemy.attackBox.position.x) / 2
       const collisionY = (player.attackBox.position.y + enemy.attackBox.position.y + 
@@ -219,6 +223,7 @@ function animate() {
           enemy.takeHit()
           player.attackHit = true // Marcar que el ataque ya golpeó
           player.isAttacking = false
+          playGameSound('player1Hit')
 
           gsap.to('#enemyHealth', {
             width: enemy.health + '%'
@@ -226,11 +231,6 @@ function animate() {
         }
       }
       
-      // Si el ataque pasó los frames activos sin golpear, marcar como fallido
-      if (player.isAttacking && player.attackActiveFramesStart && player.framesCurrent > 4) {
-        player.attackHit = true // Marcar como "usado" para evitar hits tardíos
-      }
-
       // this is where our player gets hit
       // Solo aplicar daño si el ataque está en frames activos Y aún no ha golpeado
       if (
@@ -251,6 +251,7 @@ function animate() {
           player.takeHit()
           enemy.attackHit = true // Marcar que el ataque ya golpeó
           enemy.isAttacking = false
+          playGameSound('player2Hit')
 
           gsap.to('#playerHealth', {
             width: player.health + '%'
@@ -258,19 +259,22 @@ function animate() {
         }
       }
       
-      // Si el ataque pasó los frames activos sin golpear, marcar como fallido
-      if (enemy.isAttacking && enemy.attackActiveFramesStart && enemy.framesCurrent > 4) {
-        enemy.attackHit = true // Marcar como "usado" para evitar hits tardíos
-      }
     }
 
-    // if player misses
-    if (player.isAttacking && player.framesCurrent >= 5) {
+    // Finish the attack even if another animation replaced its final sprite frame.
+    if (player.isAttacking && player.attackElapsed >= player.attackDuration) {
+      if (!player.attackHit && player.attackActiveFramesStart) {
+        playGameSound('miss')
+      }
+      player.attackHit = true
       player.isAttacking = false
     }
 
-    // if enemy misses
-    if (enemy.isAttacking && enemy.framesCurrent >= 4) {
+    if (enemy.isAttacking && enemy.attackElapsed >= enemy.attackDuration) {
+      if (!enemy.attackHit && enemy.attackActiveFramesStart) {
+        playGameSound('miss')
+      }
+      enemy.attackHit = true
       enemy.isAttacking = false
     }
 
@@ -416,4 +420,3 @@ function animate() {
   }
   */
 }
-

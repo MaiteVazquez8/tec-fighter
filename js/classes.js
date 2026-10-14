@@ -159,6 +159,8 @@ class Fighter extends Sprite {
     this.canJump = true // Nueva propiedad para controlar si puede saltar
     this.attackHit = false // Flag para rastrear si el ataque actual ya golpeó
     this.attackActiveFramesStart = false // Flag para rastrear cuando empiezan los frames activos
+    this.attackElapsed = 0
+    this.attackDuration = 0
 
     for (const sprite in this.sprites) {
       sprites[sprite].image = new Image()
@@ -179,8 +181,15 @@ class Fighter extends Sprite {
   attack() {
     this.switchSprite('attack1')
     this.isAttacking = true
+    this.attackElapsed = 0
+    this.attackDuration = (this.sprites.attack1.framesMax - 1) * this.framesHold
     this.attackHit = false // Reset flag cuando comienza un nuevo ataque
     this.attackActiveFramesStart = false // Reset flag de frames activos
+  }
+
+  animateFrames() {
+    super.animateFrames()
+    if (this.isAttacking) this.attackElapsed++
   }
 
   takeHit() {

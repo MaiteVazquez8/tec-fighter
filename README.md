@@ -25,25 +25,38 @@ La fuente pixel art se carga desde Google Fonts y GSAP se carga desde CDN, por l
 
 ```text
 tec-fighter
-    ├── index.html              # Menús, HUD, canvas y carga de scripts
-    ├── index.js                # Arranque del menú y del bucle de animación
-    ├── intro.html              # Introducción y presentación del equipo
-    ├── css/
-    │   ├── style.css           # Estilos del juego y sus menús
-    │   └── intro.css           # Estilos de la introducción
-    ├── js/
-    │   ├── classes.js          # Clases Sprite y Fighter
-    │   ├── utils.js            # Colisiones y partículas Spark
-    │   ├── game-setup.js       # Canvas, estado, luchadores y teclas
-    │   ├── game-ui.js          # Referencias DOM, menús y botones
-    │   ├── game-rounds.js      # Temporizadores, rounds y reinicio
-    │   ├── game-loop.js        # Física, combate, colisiones y dibujo
-    │   ├── game-controls.js    # Eventos de teclado
-    └── img/
-        ├── TF-bg.png           # Fondo de la arena
-        ├── shop.png            # Elemento animado de la arena
-        ├── samuraiMack/        # Sprites y animaciones del jugador 1
-        └── kenji/              # Sprites y animaciones del jugador 2
+├── index.html                  # Menús, HUD, canvas y carga de scripts
+├── index.js                    # Arranque del menú y del bucle de animación
+├── intro.html                  # Introducción y presentación del equipo
+├── css/
+│   ├── style.css               # Estilos del juego y sus menús
+│   └── intro.css               # Estilos de la introducción
+├── js/
+│   ├── classes.js              # Clases Sprite y Fighter
+│   ├── utils.js                # Colisiones y partículas Spark
+│   ├── game-setup.js           # Canvas, estado, luchadores y teclas
+│   ├── game-audio.js           # Carga y reproducción de efectos de sonido
+│   ├── music.js                # Música de menú y pelea, con control de loop y estados
+│   ├── ui-audio.js             # Sonido de clic para botones y comenzar
+│   ├── game-ui.js              # Referencias DOM, menús y botones
+│   ├── game-rounds.js          # Temporizadores, rounds y reinicio
+│   ├── game-loop.js            # Física, combate, colisiones y dibujo
+│   └── game-controls.js        # Eventos de teclado
+├── sound/
+│   ├── bloqueo.mp3             # Choque de ataques bloqueados
+│   ├── clic.wav                # Sonido de botones (versión compatible del clic.aiff)
+│   ├── clic.aiff               # Audio original del clic
+│   ├── fondoMenu.mp3           # Música en loop para pantallas fuera del combate
+│   ├── fondoPelea.wav          # Música original en loop durante el combate
+│   ├── golpeErrado.wav         # Audio original del golpe al aire
+│   ├── golpeErradoPCM.wav      # Versión PCM compatible del golpe al aire
+│   ├── golpeJugador1.mp3       # Golpe acertado del jugador 1
+│   └── golpeJugador2.mp3       # Golpe acertado del jugador 2
+└── img/
+    ├── TF-bg.png               # Fondo de la arena
+    ├── shop.png                # Elemento animado de la arena
+    ├── samuraiMack/            # Sprites y animaciones del jugador 1
+    └── kenji/                  # Sprites y animaciones del jugador 2
 ```
 
 ## Cómo funciona el juego
@@ -54,6 +67,7 @@ tec-fighter
 - Hay hasta **tres rounds**. Cada golpe acertado quita 20 puntos de vida. Si el tiempo llega a cero, gana el round quien tenga más vida; si alguien llega a cero, el round termina.
 - Entre rounds se muestra el resultado y una cuenta regresiva de tres segundos. Al terminar el último round, se espera un segundo y se muestra el resultado de la partida.
 - Si ambos luchadores atacan al mismo tiempo y chocan sus áreas de ataque, se bloquean y aparecen partículas de chispa.
+- Hay efectos de sonido para golpes acertados, ataques al aire y bloqueos. `sound/fondoPelea.wav` suena en loop durante los rounds; `sound/fondoMenu.mp3` suena en loop en la introducción, menús, pausas y transiciones.
 - `Escape` pausa y reanuda la partida. El botón de reinicio de partida también está disponible en los menús.
 
 ## Controles
@@ -91,6 +105,18 @@ Define `animate()`, que usa `requestAnimationFrame` para actualizar la física y
 
 Registra `keydown` y `keyup`. Los controles solo se procesan durante una partida activa; `Escape` permite pausar y continuar.
 
+### `js/music.js`
+
+Mantiene en loop la música del menú y la de pelea, cambia entre ellas al iniciar o pausar un round, al navegar los menús y durante las transiciones. Si el navegador bloquea la reproducción automática, vuelve a intentar al primer gesto del usuario.
+
+### `js/game-audio.js`
+
+Carga los efectos de `sound/` y define `playGameSound()`. El golpe al aire suena una vez cuando termina un ataque que no acertó; el audio de bloqueo suena cuando los dos ataques chocan y cancelan el daño. Cada jugador tiene además un sonido propio cuando acierta un golpe. Un ataque bloqueado no reproduce el sonido de golpe errado.
+
+### `js/ui-audio.js`
+
+Reproduce `sound/clic.wav` al pulsar botones del juego o el enlace **Comenzar juego** de la introducción. `sound/clic.wav` es una versión PCM compatible con los navegadores, convertida desde el archivo original `sound/clic.aiff`.
+
 ### `js/classes.js`
 
 - `Sprite` dibuja una imagen o una hoja de sprites y avanza sus frames de animación.
@@ -106,7 +132,7 @@ Registra `keydown` y `keyup`. Los controles solo se procesan durante una partida
 
 ## Orden de carga de JavaScript
 
-Los scripts se cargan al final de `index.html`: primero utilidades y clases; luego configuración, interfaz, rounds, bucle y controles; por último `index.js` inicia el menú y la animación. Se usan scripts clásicos del navegador, por lo que es importante conservar este orden: cada archivo depende de variables y funciones declaradas antes.
+Los scripts se cargan al final de `index.html`: primero utilidades y clases; luego configuración, audio, interfaz, rounds, bucle y controles; por último `index.js` inicia el menú y la animación. Se usan scripts clásicos del navegador, por lo que es importante conservar este orden: cada archivo depende de variables y funciones declaradas antes.
 
 ## Primera visita
 

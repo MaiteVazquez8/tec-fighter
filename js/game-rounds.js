@@ -33,6 +33,7 @@ function decreaseTimer() {
 // Funciones para manejar rounds
 function determineRoundWinner() {
   roundEnded = true
+  startMenuMusic()
   clearTimeout(timerId)
   clearRoundCountdown()
   
@@ -115,6 +116,7 @@ function nextRound() {
   player.framesElapsed = 0
   player.attackHit = false
   player.attackActiveFramesStart = false
+  player.attackElapsed = 0
   player.image = player.sprites.idle.image
   player.framesMax = player.sprites.idle.framesMax
   
@@ -130,6 +132,7 @@ function nextRound() {
   enemy.framesElapsed = 0
   enemy.attackHit = false
   enemy.attackActiveFramesStart = false
+  enemy.attackElapsed = 0
   enemy.image = enemy.sprites.idle.image
   enemy.framesMax = enemy.sprites.idle.framesMax
   
@@ -138,10 +141,12 @@ function nextRound() {
   document.querySelector('#enemyHealth').style.width = '100%'
   
   updateRoundDisplay()
+  startFightMusic()
 }
 
 function endGame() {
   gameEnded = true
+  startMenuMusic()
   clearTimeout(timerId)
   clearRoundCountdown()
   clearEndGameDelay()
@@ -200,6 +205,7 @@ function resetGame() {
   player.velocity.y = 0
   player.canJump = true
   player.isAttacking = false
+  player.attackElapsed = 0
   player.framesCurrent = 0
   player.framesElapsed = 0
   player.image = player.sprites.idle.image
@@ -214,6 +220,7 @@ function resetGame() {
   enemy.velocity.y = 0
   enemy.canJump = true
   enemy.isAttacking = false
+  enemy.attackElapsed = 0
   enemy.framesCurrent = 0
   enemy.framesElapsed = 0
   enemy.image = enemy.sprites.idle.image
@@ -228,4 +235,3 @@ function resetGame() {
   
   updateRoundDisplay()
 }
-

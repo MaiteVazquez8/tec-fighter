@@ -44,11 +44,9 @@ tec-fighter
 │   └── game-controls.js        # Eventos de teclado
 ├── sound/
 │   ├── bloqueo.mp3             # Choque de ataques bloqueados
-│   ├── clic.wav                # Sonido de botones (versión compatible del clic.aiff)
-│   ├── clic.aiff               # Audio original del clic
+│   ├── clic.wav                # Sonido de botones
 │   ├── fondoMenu.mp3           # Música en loop para pantallas fuera del combate
 │   ├── fondoPelea.wav          # Música original en loop durante el combate
-│   ├── golpeErrado.wav         # Audio original del golpe al aire
 │   ├── golpeErradoPCM.wav      # Versión PCM compatible del golpe al aire
 │   ├── golpeJugador1.mp3       # Golpe acertado del jugador 1
 │   └── golpeJugador2.mp3       # Golpe acertado del jugador 2
@@ -115,7 +113,7 @@ Carga los efectos de `sound/` y define `playGameSound()`. El golpe al aire suena
 
 ### `js/ui-audio.js`
 
-Reproduce `sound/clic.wav` al pulsar botones del juego o el enlace **Comenzar juego** de la introducción. `sound/clic.wav` es una versión PCM compatible con los navegadores, convertida desde el archivo original `sound/clic.aiff`.
+Reproduce `sound/clic.wav` al pulsar botones del juego o el enlace **Comenzar juego** de la introducción. El archivo está en formato PCM compatible con los navegadores.
 
 ### `js/classes.js`
 

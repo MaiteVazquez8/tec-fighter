@@ -26,14 +26,19 @@ La fuente pixel art se carga desde Google Fonts y GSAP se carga desde CDN, por l
 ```text
 .
 ├── index.html              # Menús, HUD, canvas y carga de scripts
-├── index.js                # Estado, reglas, controles y bucle de juego
+├── index.js                # Arranque del menú y del bucle de animación
 ├── intro.html              # Introducción y presentación del equipo
 ├── css/
 │   ├── style.css           # Estilos del juego y sus menús
 │   └── intro.css           # Estilos de la introducción
 ├── js/
 │   ├── classes.js          # Clases Sprite y Fighter
-│   └── utils.js            # Colisiones y partículas Spark
+│   ├── utils.js            # Colisiones y partículas Spark
+│   ├── game-setup.js       # Canvas, estado, luchadores y teclas
+│   ├── game-ui.js          # Referencias DOM, menús y botones
+│   ├── game-rounds.js      # Temporizadores, rounds y reinicio
+│   ├── game-loop.js        # Física, combate, colisiones y dibujo
+│   ├── game-controls.js    # Eventos de teclado
 └── img/
     ├── TF-bg.png           # Fondo de la arena
     ├── shop.png            # Elemento animado de la arena
@@ -64,22 +69,33 @@ La fuente pixel art se carga desde Google Fonts y GSAP se carga desde CDN, por l
 
 ### `index.js`
 
-Es el punto de entrada de la lógica del juego. El orden de scripts al final de `index.html` es importante: primero se cargan `utils.js` y `classes.js`, y después `index.js`, que usa sus clases y funciones.
+Es el archivo de arranque: muestra el menú y comienza el bucle de animación. El código se distribuye entre archivos de `js/`, separados por responsabilidad.
 
-- El canvas y el contexto 2D se guardan en `canvas` y `c`.
-- Las instancias `player`, `enemy`, `background` y `shop` representan los elementos de la arena.
-- `state` distingue el menú, las instrucciones y la partida; `isPaused`, `roundEnded` y `gameEnded` ayudan a controlar las transiciones.
-- `animate()` usa `requestAnimationFrame` para actualizar la física, procesar movimiento y colisiones, y dibujar cada frame.
-- Los eventos `keydown` y `keyup` leen los controles. Los controles de los luchadores solo se aceptan durante una partida activa.
-- `decreaseTimer()` actualiza el tiempo; `determineRoundWinner()`, `nextRound()` y `endGame()` coordinan la puntuación y los cambios entre rounds.
-- `startGame()` y `resetGame()` inicializan el estado de una partida nueva. Los temporizadores de round y del resultado final se cancelan al reiniciar o volver al menú.
-- GSAP se usa para animar el ancho de las barras de vida cuando un luchador recibe daño.
+### `js/game-setup.js`
+
+Prepara el canvas de 1024 × 576, las variables de estado, las instancias del escenario y los dos luchadores, además de las teclas de movimiento.
+
+### `js/game-ui.js`
+
+Conecta los elementos HTML con el código y gestiona las acciones de los menús: jugar, mostrar instrucciones, pausar, continuar, volver y jugar una revancha.
+
+### `js/game-rounds.js`
+
+Controla el temporizador, la puntuación y las transiciones de los rounds. También reinicia la vida, posición y animaciones de los luchadores entre rounds y partidas.
+
+### `js/game-loop.js`
+
+Define `animate()`, que usa `requestAnimationFrame` para actualizar la física y las animaciones, procesar movimiento y combate, comprobar colisiones y dibujar cada frame. GSAP anima las barras de vida cuando hay daño.
+
+### `js/game-controls.js`
+
+Registra `keydown` y `keyup`. Los controles solo se procesan durante una partida activa; `Escape` permite pausar y continuar.
 
 ### `js/classes.js`
 
 - `Sprite` dibuja una imagen o una hoja de sprites y avanza sus frames de animación.
 - `Fighter` extiende `Sprite` y añade vida, velocidad, orientación, salto, ataque y selección de animaciones.
-- Las imágenes de animación se configuran por luchador en `index.js`, indicando la ruta y la cantidad de frames de cada hoja.
+- Las imágenes de animación se configuran por luchador en `js/game-setup.js`, indicando la ruta y la cantidad de frames de cada hoja.
 
 ### `js/utils.js`
 
@@ -87,6 +103,10 @@ Es el punto de entrada de la lógica del juego. El orden de scripts al final de 
 - `attackBoxCollision()` comprueba el choque entre los ataques de ambos luchadores.
 - `getBodyHitbox()` calcula un área vulnerable más pequeña que el sprite visible.
 - `Spark` actualiza y dibuja las partículas que aparecen cuando se bloquean ataques.
+
+## Orden de carga de JavaScript
+
+Los scripts se cargan al final de `index.html`: primero utilidades y clases; luego configuración, interfaz, rounds, bucle y controles; por último `index.js` inicia el menú y la animación. Se usan scripts clásicos del navegador, por lo que es importante conservar este orden: cada archivo depende de variables y funciones declaradas antes.
 
 ## Primera visita
 
